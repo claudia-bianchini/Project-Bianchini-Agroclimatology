@@ -215,11 +215,11 @@ Local Dashboard Default Link: http://127.0.0.1:8050/
 - Temperature at 2 Meters T2M [°C]
 - Surface Pressure PS[kPa]
 - Root Zone Soil Wetness GWETROOT [%]
-- Precipitation Corrected PRECTOTCORR ['??']
-- All Sky Surface Shortwave Downward Irradiance ALLSKY_SFC_SW_DWN [??]
-- Clear Sky Surface Shortwave Downward Irradiance CLRSKY_SFC_SW_DWN [??]
-- Wind Speed at 2 Meters WS2M [??],
-- Wind Speed at 10 Meters WS10M [??]
+- Precipitation Corrected PRECTOTCORR ['-']
+- All Sky Surface Shortwave Downward Irradiance ALLSKY_SFC_SW_DWN [Wm^2]
+- Clear Sky Surface Shortwave Downward Irradiance CLRSKY_SFC_SW_DWN [Wm^2]
+- Wind Speed at 2 Meters WS2M [m/s],
+- Wind Speed at 10 Meters WS10M [m/s]
 
 ### 2. Dashboard:
 
@@ -335,8 +335,12 @@ Looking for additional data of different types can give better results.
 
 ## DEVELOPER GUIDE
 
-A more detailed description of the project may be needed for modifying and acting on [Project Bianchini Agroclimatology]. The script is organized in modules:
+A more detailed description of the project may be needed for modifying and acting on [Project Bianchini Agroclimatology]. 
+The script is organized in modules. The developer can have a live description on what a module is doing by setting to True the global variable [debug]:
 
+debug = True
+
+Moduls are:
 ### main.py
 
 This Python module serves as the main entry point for 'Project Bianchini Agroclimatology.' The module orchestrates the entire workflow of the project, including creating a project directory, checking and downloading a dataset from a specified URL, extracting relevant information, and visualizing results through a dashboard using Dash.

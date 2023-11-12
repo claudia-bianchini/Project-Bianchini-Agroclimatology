@@ -601,7 +601,7 @@ def create_dash(df, df_soja):
         'T2M': ['Temperature at 2 Meters', '°C'],
         'PS': ['Surface Pressure', 'kPa'],
         'GWETROOT': ['Root Zone Soil Wetness', '%'],
-        'PRECTOTCORR': ['Precipitation Corrected', '??'],
+        'PRECTOTCORR': ['Precipitation Corrected', '-'],
         'ALLSKY_SFC_SW_DWN': ['All Sky Surface Shortwave Downward Irradiance', 'Wm^2'],
         'CLRSKY_SFC_SW_DWN': ['Clear Sky Surface Shortwave Downward Irradiance', 'Wm^2'],
         'WS2M': ['Wind Speed at 2 Meters', 'm/s'],
