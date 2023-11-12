@@ -1,0 +1,8 @@
+branca==0.6.0
+dash==2.14.0
+folium==0.14.0
+numpy==1.26.1
+pandas==2.1.3
+plotly==5.17.0
+selenium==4.15.2
+statsmodels==0.14.0
