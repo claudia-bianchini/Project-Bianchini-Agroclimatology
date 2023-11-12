@@ -117,9 +117,7 @@ def main():
         print('Configuration file read.')
 
     # Check and download the dataset
-    input_folder_path, output_folder_path = create_project_directory(
-        project_path, input_folder, output_folder
-    )
+    dataset_check_download(url, input_folder_path, output_folder_path, driver_path, binary_location)
     if DEBUG:
         print('Dataset checked and downloaded.')
 
