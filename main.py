@@ -93,7 +93,7 @@ def main():
     - None
     """
     if DEBUG:
-        print("You're in DEBUGging mode.")
+        print("You're in DEBUGGING mode.")
         print("Let's start.")
 
     # Create the workspace

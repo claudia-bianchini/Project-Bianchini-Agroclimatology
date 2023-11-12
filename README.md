@@ -26,14 +26,9 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 - **requirements.txt:** File that contains the required dependencies for running the script.
 - **README.md:** Documentation file.
 
-#### 1.3 Key Features
-- **Feature 1:** [Description of Feature 1]
-- **Feature 2:** [Description of Feature 2]
-- ...
-
 ### 2. Getting Started
 #### 2.1 System Requirements
-Before installing [Project Bianchini Agroclimatology], ensure that your system meets the following requirements:
+Before installing [Project-Bianchini-Agroclimatology], ensure that your system meets the following requirements:
 - You must have a computer with Python 3 installed on it.
 - You must have internet connection on your computer.
 - You must have a browser and its driver installed (preferably Google Chrome).
@@ -64,34 +59,34 @@ Example:
 - For browsers other than Chrome, download the appropriate driver and update the configuration accordingly.
 
 #### 2.3 Installation
-Follow these steps to install [Project Bianchini Agroclimatology]:
+Follow these steps to install [Project-Bianchini-Agroclimatology]:
 
 1. Open the terminal.
 2. Navigate to the directory where you want to save the project (create a dedicated folder for it).
 3. Run the following command to clone the project repository:
     ```
-    $ git clone address_of_your_project_repository
+    git clone https://github.com/claudia-bianchini/Project-Bianchini-Agroclimatology.git
     ```
 4. A Folder called [Project-Bianchini-Agroclimatology] will be downloaded in the selected directory. Enter in the folder.
 5. Ensure all required dependencies are installed by running the following command:
     ```
-    $ pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 
 #### 2.4 Configuration
-Once installed, configure [Project Bianchini Agroclimatology]:
+Once installed, configure [Project-Bianchini-Agroclimatology]:
 
 1. Open the `config.txt` file in the downloaded folder.
 2. Delete the existing content.
 3. Provide the local paths for the browser driver and binary as described in Section 2.2.
 
 #### 2.5 Usage
-Follow these steps to use [Project Bianchini Agroclimatology]:
+Follow these steps to use [Project-Bianchini-Agroclimatology]:
 
 ##### Step 1: Initialization
 - Open the Terminal.
 - Launch the terminal on your system.
-- Navigate to the directory where [Project Bianchini Agroclimatology] is installed:
+- Navigate to the directory where [Project-Bianchini-Agroclimatology] is installed:
     ```
     cd /path/to/your/project
     ```
@@ -347,7 +342,7 @@ Looking for additional data of different types can give better results.
 
 ## DEVELOPER GUIDE
 
-A more detailed description of the project may be needed for modifying and acting on [Project Bianchini Agroclimatology]. 
+A more detailed description of the project may be needed for modifying and acting on [Project-Bianchini-Agroclimatology]. 
 The script is organized in modules. The developer can have a live description on what a module is doing by setting to True the global variable [debug]:
 
 DEBUG = True
@@ -455,7 +450,7 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 
 ### 2. Getting Started
 #### 2.1 System Requirements
-Before installing [Project Bianchini Agroclimatology], ensure that your system meets the following requirements:
+Before installing [Project-Bianchini-Agroclimatology], ensure that your system meets the following requirements:
 - You must have a computer with Python 3 installed on it.
 - You must have a browser and its driver installed (preferably Google Chrome).
 - You must have a Kaggle account; otherwise, it will be required to create one.
@@ -477,7 +472,7 @@ Example:
 - For browsers other than Chrome, download the appropriate driver and update the configuration accordingly.
 
 #### 2.3 Installation
-Follow these steps to install [Project Bianchini Agroclimatology]:
+Follow these steps to install [Project-Bianchini-Agroclimatology]:
 
 1. Open the terminal.
 2. Navigate to the directory where you want to save the project (create a dedicated folder for it).
@@ -492,7 +487,7 @@ Follow these steps to install [Project Bianchini Agroclimatology]:
     ```
 
 #### 2.4 Configuration
-Once installed, configure [Project Bianchini Agroclimatology]:
+Once installed, configure [Project-Bianchini-Agroclimatology]:
 
 1. Open the `config.txt` file in the downloaded folder.
 2. Delete the existing content.
@@ -509,12 +504,12 @@ Dataset dimension:
 [RAM]: At least 4 GB of RAM is generally sufficient for basic Python scripts and small to medium-sized datasets.
 
 #### 2.5 Usage
-Follow these steps to use [Project Bianchini Agroclimatology]:
+Follow these steps to use [Project-Bianchini-Agroclimatology]:
 
 ##### Step 1: Initialization
 - Open the Terminal.
 - Launch the terminal on your system.
-- Navigate to the directory where [Project Bianchini Agroclimatology] is installed:
+- Navigate to the directory where [Project-Bianchini-Agroclimatology] is installed:
     ```
     cd /path/to/your/project
     ```
@@ -755,7 +750,7 @@ approach to the problem. Investigating considering more than one measured variab
 
 ## DEVELOPER GUIDE
 
-A more detailed description of the project may be needed for modifying and acting on [Project Bianchini Agroclimatology]. The script is organized in modules:
+A more detailed description of the project may be needed for modifying and acting on [Project-Bianchini-Agroclimatology]. The script is organized in modules:
 
 ### main.py
 
