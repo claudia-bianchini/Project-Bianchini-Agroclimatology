@@ -53,7 +53,7 @@ def generate_colormaps(df, variables):
 
 
 # Define a function to create the map
-def create_map(df, color_dict, colormap, selected_var, variable_details):
+def create_map(df, color_dict, colormap, selected_var, variable_details, selected_year):
     """
     Create a Folium map based on the provided DataFrame and color information.
 
@@ -84,8 +84,8 @@ def create_map(df, color_dict, colormap, selected_var, variable_details):
 
             folium.CircleMarker(
                 location=unique_pair,
-                popup=f"Name municìpios: {row['name_ibge']}",
-                radius=row['productivity'],
+                popup=f"Name municìpios = {row['name_ibge']}; productivity {selected_year} = {row['productivity']}",
+                radius=row['normalized_productivity'],
                 color=color,
                 fill=True,
                 fill_color=color,
@@ -106,7 +106,7 @@ def create_map(df, color_dict, colormap, selected_var, variable_details):
         <div style="position: fixed; bottom: 50px; left: 50px; width: 220px; z-index:1000; background-color: white; padding: 10px; border: 1px solid grey;">
             <p><strong>Legend</strong></p>
             <p>CircleMarker Radius:</p>
-            <p style="font-size: 12px;">Radius is proportional to Productivity.</p>
+            <p style="font-size: 12px;">Radius is proportional to Productivity of that region in the selected year. It is normalized in a range (5:15)</p>
         </div>
         """
 
@@ -173,13 +173,13 @@ def update_map(
         )
 
         # Normalize productivity values to a specified range
-        subdata_unique_coord['productivity'] = normalize_values(
+        subdata_unique_coord['normalized_productivity'] = normalize_values(
             subdata_unique_coord['productivity'], 5, 15
         )  
 
         # Create the updated Folium map
         map_html = create_map(
-            subdata_unique_coord, color_dict_filtered, colormap[selected_var], selected_var, variable_details
+            subdata_unique_coord, color_dict_filtered, colormap[selected_var], selected_var, variable_details, selected_year
         )
     else:
         # Handle case where filtered data is empty
@@ -242,7 +242,7 @@ def update_histogram(
                 yanchor='top'
             )
         ],
-        title=f'North / South: Year {selected_year}, {selected_var} Variation in {selected_season}',
+        title=f'North / South: Year {selected_year}, {variable_details[selected_var][0]} Variation in {selected_season}',
         xaxis_title=f'{selected_var} - {variable_details[selected_var][0]} [{variable_details[selected_var][1]}]',
         yaxis_title='Events'
     )
@@ -260,8 +260,8 @@ def update_histogram(
                 yanchor='top'
             )
         ],
-        title=f'East / West: Year {selected_year}, {selected_var} Variation in {selected_season}',
-        xaxis_title=f'{selected_var} - {variable_details[selected_var][0]} [{variable_details[selected_var][1]}]',
+        title=f'East / West: Year {selected_year}, {variable_details[selected_var][0]} ({selected_var}) Variation in {selected_season}',
+        xaxis_title=f'{selected_var} - {variable_details[selected_var][0]} ({selected_var}) [{variable_details[selected_var][1]}]',
         yaxis_title='Events'
     )
 
@@ -490,10 +490,10 @@ def create_dash(df, df_soja):
         'PS': ['Surface Pressure', 'kPa'],
         'GWETROOT': ['Root Zone Soil Wetness', '%'],
         'PRECTOTCORR': ['Precipitation Corrected', '??'],
-        'ALLSKY_SFC_SW_DWN': ['All Sky Surface Shortwave Downward Irradiance', '??'],
-        'CLRSKY_SFC_SW_DWN': ['Clear Sky Surface Shortwave Downward Irradiance', '??'],
-        'WS2M': ['Wind Speed at 2 Meters', '??'],
-        'WS10M': ['Wind Speed at 10 Meters', '??'],
+        'ALLSKY_SFC_SW_DWN': ['All Sky Surface Shortwave Downward Irradiance', 'Wm^2'],
+        'CLRSKY_SFC_SW_DWN': ['Clear Sky Surface Shortwave Downward Irradiance', 'Wm^2'],
+        'WS2M': ['Wind Speed at 2 Meters', 'm/s'],
+        'WS10M': ['Wind Speed at 10 Meters', 'm/s'],
     }
     
     # Create colormap and split dataset
@@ -512,8 +512,15 @@ def create_dash(df, df_soja):
     # Static figure and table:
     intercept_fig, predictions_df = productivity_scatter_and_prediction(df, df_soja)
     # Convert DataFrame to a list of dictionaries for the DataTable
-    data_table = [{'name_ibge': row['name_ibge'], 'year': row['year'], 'predictions': row['predictions']} for index, row in predictions_df.iterrows()]
-
+    #data_table = [{'name_ibge': row['name_ibge'], 'year': row['year'], 'predictions': row['predictions']} for index, row in predictions_df.iterrows()]
+    data_table = [
+    {
+        'name_ibge': row['name_ibge'],
+        'year': row['year'],
+        'predictions': round(row['predictions'], 1)
+    } 
+    for index, row in predictions_df.iterrows()
+    ]
     # Define the layout of the dashboard
     app.layout = html.Div([
         html.H1("Agroclimatology - Paranà (Brazil)", style={'text-align': 'center', 'color': 'green'}),  # Centered header
@@ -561,7 +568,7 @@ def create_dash(df, df_soja):
                     for var in variables
                 ],
                 value=variables[0],  # Initial value for the dropdown
-                style={'width': '600px'}
+                style={'width': '800px'}
             )
         ], style={'display': 'flex', 'justify-content': 'center', 'padding-bottom': '20px'}),
 
@@ -602,18 +609,21 @@ def create_dash(df, df_soja):
             figure=intercept_fig,
             config={'displayModeBar': False}
         ),
+        html.P("The evident dependece of productivity in each municipal on time can be used to predict, using the Linear Mixed Models, the productivity for the next three years. Those prediction are summarized in the table below.", style={'text-align': 'center', 'margin-top': '10px'}),
+
 
         # DataTable
         dash_table.DataTable(
             id='predictions-table',
             columns=[
-                {'name': 'Name_IBGE', 'id': 'name_ibge', 'presentation': 'dropdown'},
+                {'name': 'Name Municipal', 'id': 'name_ibge', 'presentation': 'dropdown'},
                 {'name': 'Year', 'id': 'year'},
-                {'name': 'Predictions', 'id': 'predictions'},
+                {'name': 'Productivity Predictions', 'id': 'predictions'},
             ],
             style_table={'height': '300px', 'overflowY': 'auto', 'width': '60%', 'margin': 'auto'},  # Set height and add scroll if needed
             data=data_table,
         ),
+        
 
     ], style={'font-family': 'Arial, sans-serif', 'margin': '20px', 'background-color': 'white'})  # Define font-family and set margin for the entire layout
 
