@@ -617,8 +617,8 @@ If, after some minutes and refreshing the page, the dashboard fails to open, fol
 For support and feedback, contact our claudia.bianchini@edu.esiee.fr. We value your input and are here to assist you.
 
 ### 6. Additional Resources:
-Link to the Dataset: https://www.kaggle.com/datasets/hugovallejo/agroclimatology-data-of-the-state-of-paran-br/data
-Local Dashboard Default Link: http://127.0.0.1:8050/
+Link to the Dataset: [https://www.kaggle.com/datasets/hugovallejo/agroclimatology-data-of-the-state-of-paran-br/data]
+Local Dashboard Default Link: [http://127.0.0.1:8050/]
 
 
 ***********************************************************************************************************************
@@ -772,7 +772,7 @@ This Python module serves as the main entry point for 'Project Bianchini Agrocli
 
 This module handles checking, downloading, and unzipping a dataset from a specified webpage. It utilizes the Selenium library for web automation.
 
-#### Functionality of Functions:
+#### Functions:
 
 1. `initialize_driver`: Initializes a Chrome WebDriver with custom settings.
 2. `find_last_update`: Finds the last update date on the webpage using a CSS selector.
@@ -785,7 +785,7 @@ This module handles checking, downloading, and unzipping a dataset from a specif
 
 This module processes and extracts data from CSV files. It provides functions to read, filter, and manipulate data, creating a processed DataFrame saved as a CSV file.
 
-#### Functionality and Main Functions:
+#### Functions:
 
 1. `find_and_read_csv`: Finds all CSV files, sorts them, and reads the largest and smallest into two DataFrames.
 2. `filter_rows`: Filters rows based on specified productivity years.
@@ -799,7 +799,7 @@ This module processes and extracts data from CSV files. It provides functions to
 
 This module is part of a Dash web application for visualizing agroclimatology data. It integrates various functions to create an interactive web application.
 
-#### Main Functions:
+#### Functions:
 
 1. `generate_colormaps`: Generates LinearColormap objects for numeric columns in the DataFrame.
 2. `create_map`: Creates a Folium map based on the provided DataFrame and color information.
