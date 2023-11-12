@@ -22,7 +22,7 @@ Usage:
 2. Load your data, and preprocess it if necessary.
 3. Create a Dash application using the `create_dash` function, 
     passing the main DataFrame and secondary DataFrame as arguments.
-4. Run the Dash application with `app.run_server(debug=True)`.
+4. Run the Dash application with `app.run_server(DEBUG=True)`.
 
 Note: This module relies on external libraries such as Dash, Plotly, Folium, and pandas. 
 Make sure to install these libraries before running the application.
@@ -53,7 +53,7 @@ from sub_data import (
     productivity_to_df
 )
 
-debug = False
+DEBUG = False
 
 # Map functions
 def generate_colormaps(df, variables):
@@ -154,7 +154,7 @@ def create_map(df, color_dict, colormap, selected_var, variable_details, selecte
         map_html = m.get_root().render()
         return map_html
     else:
-        if debug:
+        if DEBUG:
             print("DataFrame is empty, cannot create the map.")
         return None
 

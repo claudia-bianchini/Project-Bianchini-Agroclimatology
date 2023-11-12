@@ -350,7 +350,7 @@ Looking for additional data of different types can give better results.
 A more detailed description of the project may be needed for modifying and acting on [Project Bianchini Agroclimatology]. 
 The script is organized in modules. The developer can have a live description on what a module is doing by setting to True the global variable [debug]:
 
-debug = True
+DEBUG = True
 
 Moduls are:
 ### main.py

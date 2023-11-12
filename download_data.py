@@ -21,7 +21,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-debug = False
+DEBUG = False
 
 def initialize_driver(local_directory, chrome_driver_path, chrome_binary_location):
     """
@@ -106,14 +106,14 @@ def check_last_update(update_date, url, driver, input_directory, output_director
             zip_file_name = None
         # Check if the dataset is updated
         if update_date and update_date != last_checked_date:
-            if debug:
+            if DEBUG:
                 print('Dataset is updated. Downloading the new version.')
             zip_file_name = download_dataset(url, driver, input_directory)
             # Update the last update file with the new date
             with open(last_update_path, "w", encoding="utf-8") as file:
                 file.write(update_date)
         else:
-            if debug:
+            if DEBUG:
                 print('Dataset is not updated. No need to download.')
     except FileNotFoundError:
         # If the last update file doesn't exist, create it and download the dataset
@@ -143,13 +143,13 @@ def download_dataset(dataset_url, driver, local_directory):
         try:
             if os.path.isfile(file_path):
                 os.remove(file_path)
-                if debug:
+                if DEBUG:
                     print(f"File {filename} removed successfully.")
             elif os.path.isdir(file_path):
-                if debug:
+                if DEBUG:
                     print(f"Path {filename} is a directory. Not removed.")
         except Exception as e:
-            if debug:
+            if DEBUG:
                 print(f"Error in removing {filename}: {e}")
 
     # Wait for the dataset URL to be loaded
@@ -164,7 +164,7 @@ def download_dataset(dataset_url, driver, local_directory):
             EC.visibility_of_element_located((By.CSS_SELECTOR, id_sign_in))
         )
         login_form.click()
-        if debug:
+        if DEBUG:
             print("Enter your Kaggle username and password.")
             print('Compiling...')
         # Wait for the download button to appear after sign-in
@@ -177,7 +177,7 @@ def download_dataset(dataset_url, driver, local_directory):
                 pass
 
     except TimeoutException:
-        if debug:
+        if DEBUG:
             print(f'Login form not found or not visible by selector: {id_sign_in}')
         login_form = None
 
@@ -186,7 +186,7 @@ def download_dataset(dataset_url, driver, local_directory):
         EC.element_to_be_clickable((By.CSS_SELECTOR, download_button_selector))
     )
     download_button.click()
-    if debug:
+    if DEBUG:
         print('Download is running...')
     downloaded_file = None
     timeout = 480
@@ -198,15 +198,15 @@ def download_dataset(dataset_url, driver, local_directory):
             found_files = [file for file in files if file.endswith('.zip')]
             if found_files:
                 downloaded_file = found_files[0]
-                if debug:
+                if DEBUG:
                     print('File with .zip extension found:', downloaded_file)
                 break
         except Exception as e:
-            if debug:
+            if DEBUG:
                 print("Error occurred:", e)
             time.sleep(10)
     else:
-        if debug:
+        if DEBUG:
             print("Download didn't complete within the timeout.")
 
     # Quit the WebDriver
@@ -228,7 +228,7 @@ def unzip_file(directory, zip_file_name):
 
     # Check if the specified .zip file exists
     if not os.path.exists(zip_file_path):
-        if debug:
+        if DEBUG:
             print(f"The specified .zip file '{zip_file_name}' does not exist in the directory.")
         return
 
@@ -236,15 +236,15 @@ def unzip_file(directory, zip_file_name):
         # Extract the contents of the .zip file
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
             zip_ref.extractall(directory)
-        if debug:
+        if DEBUG:
             print(f"Successfully extracted '{zip_file_name}' in the directory: {directory}")
 
     except zipfile.BadZipFile:
-        if debug:
+        if DEBUG:
             print(f"The file '{zip_file_name}' is not a valid .zip file.")
 
     except Exception as e:
-        if debug:
+        if DEBUG:
             print(f"An error occurred while extracting '{zip_file_name}': {e}")
 
 
@@ -264,20 +264,20 @@ def dataset_check_download(url, input_folder_directory, output_folder_directory,
     """
     # Initialize the Chrome WebDriver
     driver = initialize_driver(input_folder_directory, chrome_driver_path, chrome_binary_location)
-    if debug:
+    if DEBUG:
         print('Driver Initialized')
     zip_file_name = None
     # Find the last update date
     data = find_last_update(url, driver)
-    if debug:
+    if DEBUG:
         print(f'Last Update founded: ', data)
     if data:
         # Check last update date and download the dataset if updated
         zip_file_name = check_last_update(data, url, driver, input_folder_directory, output_folder_directory)
-        if debug:
+        if DEBUG:
             print('Element found: ', zip_file_name)
     else:
-        if debug:
+        if DEBUG:
             print('Element not found or timed out')
     if zip_file_name:
         # Unzip the downloaded dataset

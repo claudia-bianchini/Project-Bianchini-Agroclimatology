@@ -12,7 +12,7 @@
         None
 """
 
-debug = False
+DEBUG = False
 
 import os
 import pandas as pd
@@ -32,7 +32,7 @@ def find_and_read_csv(directory):
     csv_files = [file for file in os.listdir(directory) if file.endswith('.csv')]
     # If no CSV files are found, inform the user and return None
     if not csv_files:
-        if debug:
+        if DEBUG:
             print("No CSV files found in the directory.")
         return None, None
     # Get the size of each CSV file and sort them based on file size
@@ -61,11 +61,11 @@ def filter_rows(dataframe, productivity_years):
         filtered_dataframe = dataframe[dataframe['year'].isin(productivity_years)].copy()
         return filtered_dataframe
     except KeyError as e:
-        if debug:
+        if DEBUG:
             print(f"Error: {e}. 'year' column not found.")
         return pd.DataFrame()  # Return an empty DataFrame if the 'year' column is not found
     except Exception as e:
-        if debug:
+        if DEBUG:
             print(f"Error: {e}. Failed to filter rows based on productivity years.")
         return dataframe  # Return the original DataFrame if an exception occurs
 
@@ -88,7 +88,7 @@ def drop_columns(dataframe, columns_to_keep):
         # Drop columns not present in the columns_to_keep list
         return dataframe.drop(columns=columns_to_drop)
     except Exception as e:
-        if debug:
+        if DEBUG:
             print(f"Error: {e}. Failed to drop columns.")
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
@@ -110,7 +110,7 @@ def assign_date(dataframe):
         dataframe['day'] = dataframe['data'].astype(str).str[6:8]
         return dataframe
     except KeyError as e:
-        if debug:
+        if DEBUG:
             print(f"Error: {e}. 'data' column not found.")
         return pd.DataFrame()  # Return an empty DataFrame in case of an error
 
