@@ -35,6 +35,7 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 #### 2.1 System Requirements
 Before installing [Project Bianchini Agroclimatology], ensure that your system meets the following requirements:
 - You must have a computer with Python 3 installed on it.
+- You must have internet connection on your computer.
 - You must have a browser and its driver installed (preferably Google Chrome).
 - You must have a Kaggle account; otherwise, it will be required to create one.
 
@@ -195,6 +196,17 @@ If, after some minutes and refreshing the page, the dashboard fails to open, fol
    Dash is running on http://127.0.0.1:8050/
    * Serving Flask app 'dash_tot'
    * Debug mode: on
+
+
+**[Issue 2]: Default Local Link Not Working**
+
+If for some reason the running is interrupted before the creation of the dashboard, check on the Desktop, in the folder [Project-Bianchini-Agroclimatology] if there are the unzipped file in the subfolder [input]. If yes, the script will work. If there isn't the folder, or there is nothing in the subfolder, or just a .zip file, you must go in subfolder [output] and delete the file [last_update.txt].
+
+### 5. Common Errors
+
+**[Error 1]: Registration response error message: PHONE_REGISTRATION_ERROR**
+
+This error is linked to the connection. Can be showed because if the connection is not perfectly stable and strong it can take some time to move fromo a url to another during the dowloading phase. Attending few seconds everything will be automatically fixed.
 
 ### 5. Support and Feedback
 For support and feedback, contact our claudia.bianchini@edu.esiee.fr. We value your input and are here to assist you.
