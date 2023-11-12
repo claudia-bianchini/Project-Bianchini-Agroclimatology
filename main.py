@@ -103,7 +103,9 @@ def main():
     input_folder = "input"
     output_folder = "output"
 
-    input_folder_path, output_folder_path = create_project_directory(project_path, input_folder, output_folder)
+    input_folder_path, output_folder_path = create_project_directory(
+        project_path, input_folder, output_folder
+    )
     if DEBUG:
         print('Project directory created.')
 
@@ -131,7 +133,6 @@ def main():
 
     if __name__ == '__main__':
         app.run_server(debug=True, use_reloader=False)
-
 
 if __name__ == "__main__":
     main()
