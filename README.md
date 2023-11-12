@@ -205,9 +205,9 @@ This error is linked to the connection. Can be showed because if the connection 
 For support and feedback, contact our claudia.bianchini@edu.esiee.fr. We value your input and are here to assist you.
 
 ### 6. Additional Resources:
-Dataset Link: [https://www.kaggle.com/datasets/hugovallejo/agroclimatology-data-of-the-state-of-paran-br/data]
+-Dataset Link: [https://www.kaggle.com/datasets/hugovallejo/agroclimatology-data-of-the-state-of-paran-br/data]
 
-Local Dashboard Default Link: [http://127.0.0.1:8050/]
+-Local Dashboard Default Link: [http://127.0.0.1:8050/]
 
 ***********************************************************************************************************************
 
