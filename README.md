@@ -26,11 +26,6 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 - **requirements.txt:** File that contains the required dependencies for running the script.
 - **README.md:** Documentation file.
 
-#### 1.3 Key Features
-- **Feature 1:** [Description of Feature 1]
-- **Feature 2:** [Description of Feature 2]
-- ...
-
 ### 2. Getting Started
 #### 2.1 System Requirements
 Before installing [Project Bianchini Agroclimatology], ensure that your system meets the following requirements:
