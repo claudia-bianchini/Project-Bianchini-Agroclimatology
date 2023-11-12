@@ -28,7 +28,7 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 
 ### 2. Getting Started
 #### 2.1 System Requirements
-Before installing [Project-Bianchini-Agroclimatology], ensure that your system meets the following requirements:
+Before installing *Project-Bianchini-Agroclimatology*, ensure that your system meets the following requirements:
 - You must have a computer with Python 3 installed on it.
 - You must have internet connection on your computer.
 - You must have a browser and its driver installed (preferably Google Chrome).
@@ -38,7 +38,7 @@ Dataset dimension:
 - agroclimatology.csv: 488.625 KB
 - produtividade_soja.csv: 43 KB
 
-[Operating System]: Python is cross-platform and can run on Windows, macOS, and Linux.  
+[Operating System]: Windows is needed to run the scrip.  
 [Processor]: Multi-core processor (e.g., dual-core) is recommended, but with this dataset dimension, also a single core will work.
 [RAM]: At least 4 GB of RAM is generally sufficient for basic Python scripts and small to medium-sized datasets.
 
@@ -59,7 +59,7 @@ Example:
 - For browsers other than Chrome, download the appropriate driver and update the configuration accordingly.
 
 #### 2.3 Installation
-Follow these steps to install [Project-Bianchini-Agroclimatology]:
+Follow these steps to install *Project-Bianchini-Agroclimatology*:
 
 1. Open the terminal.
 2. Navigate to the directory where you want to save the project (create a dedicated folder for it).
@@ -67,29 +67,27 @@ Follow these steps to install [Project-Bianchini-Agroclimatology]:
     ```
     git clone https://github.com/claudia-bianchini/Project-Bianchini-Agroclimatology.git
     ```
-4. A Folder called [Project-Bianchini-Agroclimatology] will be downloaded in the selected directory. Enter in the folder.
+4. A Folder called *Project-Bianchini-Agroclimatology* will be downloaded in the selected directory. Enter in the folder.
 5. Ensure all required dependencies are installed by running the following command:
     ```
     pip install -r requirements.txt
     ```
 
 #### 2.4 Configuration
-Once installed, configure [Project-Bianchini-Agroclimatology]:
+Once installed, configure *Project-Bianchini-Agroclimatology*:
 
 1. Open the `config.txt` file in the downloaded folder.
 2. Delete the existing content.
 3. Provide the local paths for the browser driver and binary as described in Section 2.2.
 
 #### 2.5 Usage
-Follow these steps to use [Project-Bianchini-Agroclimatology]:
+Follow these steps to use *Project-Bianchini-Agroclimatology*:
 
 ##### Step 1: Initialization
 - Open the Terminal.
 - Launch the terminal on your system.
-- Navigate to the directory where [Project-Bianchini-Agroclimatology] is installed:
-    ```
-    cd /path/to/your/project
-    ```
+- Navigate to the directory where *Project-Bianchini-Agroclimatology* is installed:
+
 
 ##### Step 2: Run the Application
 - Execute the Main Script:
@@ -156,7 +154,7 @@ This can happen due to modifications on the website. Css_selector may change. Ch
 2. Right-click on the word 'UPDATED'.
 3. Inspect, then right-click and copy the selector.
 
-Write it in the 'download_data.py' file at line 53 with the following syntax:
+Write it in the 'download_data.py' file at line 72 with the following syntax:
 
 css_selector = '#site-content > div:nth-child(2) > div > div > div.sc-kriKqB.bdptWe > div.sc-jIXSKn.bdYZfJ > span > span:nth-child(2) > span'
 
@@ -166,7 +164,7 @@ css_selector = '#site-content > div:nth-child(2) > div > div > div.sc-kriKqB.bdp
 2. Right-click on the 'Sign in' button.
 3. Inspect, then right-click and copy the selector.
 
-Write it in the 'download_data.py' file at line 131 with the following syntax:
+Write it in the 'download_data.py' file at line 160 with the following syntax:
 
 id_sign_in = '#site-container > div > div.sc-cmtnDe.WXA-DT > div.sc-lfeRdP.lgbEgp > div.sc-gglKJF.eeMhNC > div > div:nth-child(1) > a > button > span'
 
@@ -176,7 +174,7 @@ id_sign_in = '#site-container > div > div.sc-cmtnDe.WXA-DT > div.sc-lfeRdP.lgbEg
 2. Right-click on the word 'Download ()'.
 3. Inspect, then right-click and copy the selector.
 
-Write it in the 'download_data.py' file at line 130 with the following syntax:
+Write it in the 'download_data.py' file at line 159 with the following syntax:
 
 download_button_selector = '#site-content > div:nth-child(2) > div > div > div.sc-kriKqB.bdptWe > div.sc-jIXSKn.bdYZfJ > div > a > button'
 
@@ -195,7 +193,7 @@ If, after some minutes and refreshing the page, the dashboard fails to open, fol
 
 **[Issue 2]: Default Local Link Not Working**
 
-If for some reason the running is interrupted before the creation of the dashboard, check on the Desktop, in the folder [Project-Bianchini-Agroclimatology] if there are the unzipped file in the subfolder [input]. If yes, the script will work. If there isn't the folder, or there is nothing in the subfolder, or just a .zip file, you must go in subfolder [output] and delete the file [last_update.txt].
+If for some reason the running is interrupted before the creation of the dashboard, check on the Desktop, in the folder *Project-Bianchini-Agroclimatology* if there are the unzipped file in the subfolder [input]. If yes, the script will work. If there isn't the folder, or there is nothing in the subfolder, or just a .zip file, you must go in subfolder [output] and delete the file [last_update.txt].
 
 ### 5. Common Errors
 
@@ -342,7 +340,7 @@ Looking for additional data of different types can give better results.
 
 ## DEVELOPER GUIDE
 
-A more detailed description of the project may be needed for modifying and acting on [Project-Bianchini-Agroclimatology]. 
+A more detailed description of the project may be needed for modifying and acting on *Project-Bianchini-Agroclimatology*. 
 The script is organized in modules. The developer can have a live description on what a module is doing by setting to True the global variable [debug]:
 
 DEBUG = True
@@ -450,7 +448,7 @@ This project focuses on Agroclimatology data of the state of Paraná, Brazil. It
 
 ### 2. Getting Started
 #### 2.1 System Requirements
-Before installing [Project-Bianchini-Agroclimatology], ensure that your system meets the following requirements:
+Before installing *Project-Bianchini-Agroclimatology*, ensure that your system meets the following requirements:
 - You must have a computer with Python 3 installed on it.
 - You must have a browser and its driver installed (preferably Google Chrome).
 - You must have a Kaggle account; otherwise, it will be required to create one.
@@ -472,7 +470,7 @@ Example:
 - For browsers other than Chrome, download the appropriate driver and update the configuration accordingly.
 
 #### 2.3 Installation
-Follow these steps to install [Project-Bianchini-Agroclimatology]:
+Follow these steps to install *Project-Bianchini-Agroclimatology*:
 
 1. Open the terminal.
 2. Navigate to the directory where you want to save the project (create a dedicated folder for it).
@@ -487,7 +485,7 @@ Follow these steps to install [Project-Bianchini-Agroclimatology]:
     ```
 
 #### 2.4 Configuration
-Once installed, configure [Project-Bianchini-Agroclimatology]:
+Once installed, configure *Project-Bianchini-Agroclimatology*:
 
 1. Open the `config.txt` file in the downloaded folder.
 2. Delete the existing content.
@@ -504,12 +502,12 @@ Dataset dimension:
 [RAM]: At least 4 GB of RAM is generally sufficient for basic Python scripts and small to medium-sized datasets.
 
 #### 2.5 Usage
-Follow these steps to use [Project-Bianchini-Agroclimatology]:
+Follow these steps to use *Project-Bianchini-Agroclimatology*:
 
 ##### Step 1: Initialization
 - Open the Terminal.
 - Launch the terminal on your system.
-- Navigate to the directory where [Project-Bianchini-Agroclimatology] is installed:
+- Navigate to the directory where *Project-Bianchini-Agroclimatology* is installed:
     ```
     cd /path/to/your/project
     ```
@@ -750,7 +748,7 @@ approach to the problem. Investigating considering more than one measured variab
 
 ## DEVELOPER GUIDE
 
-A more detailed description of the project may be needed for modifying and acting on [Project-Bianchini-Agroclimatology]. The script is organized in modules:
+A more detailed description of the project may be needed for modifying and acting on *Project-Bianchini-Agroclimatology*. The script is organized in modules:
 
 ### main.py
 

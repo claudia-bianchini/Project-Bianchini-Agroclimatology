@@ -593,7 +593,10 @@ def create_dash(df, df_soja):
     # Retrieve all column names
     all_columns = df.columns.tolist()
     # Columns to be removed
-    columns_to_remove = ['codigo_ibge', 'latitude', 'longitude', 'year', 'month', 'day', 'season', 'name_ibge']
+    columns_to_remove = [
+        'codigo_ibge', 'latitude', 'longitude', 
+        'year', 'month', 'day', 'season', 'name_ibge'
+    ]
     # Create a list of variables starting from the column of a DataFrame deleting some of them
     variables = [col for col in all_columns if col not in columns_to_remove]
     variable_details = {
@@ -740,7 +743,7 @@ def create_dash(df, df_soja):
             columns=[
                 {'name': 'Name Municipal', 'id': 'name_ibge', 'presentation': 'dropdown'},
                 {'name': 'Year', 'id': 'year'},
-                {'name': 'Productivity Predictions', 'id': 'predictions'},
+                {'name': 'Productivity Predictions', 'id': 'predictions'}
             ],
             style_table={'height': '300px', 'overflowY': 'auto', 'width': '60%', 'margin': 'auto'},
             data=data_table,

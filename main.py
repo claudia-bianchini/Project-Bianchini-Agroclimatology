@@ -36,9 +36,9 @@ def create_project_directory(project_path, input_folder, output_folder, DEBUG=Fa
     if not os.path.exists(project_path):
         os.makedirs(project_path)
         if DEBUG:
-            print("'Project' directory created on the Desktop.")
+            print("Project directory created on the Desktop.")
     elif DEBUG:
-        print("'Project' directory already exists on the Desktop.")
+        print("Project directory already exists on the Desktop.")
 
     # Create 'input' and 'output' subdirectories inside 'Project'
     input_path = os.path.join(project_path, input_folder)
