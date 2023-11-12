@@ -53,6 +53,8 @@ from sub_data import (
     productivity_to_df
 )
 
+debug = False
+
 # Map functions
 def generate_colormaps(df, variables):
     """
@@ -97,7 +99,6 @@ def create_map(df, color_dict, colormap, selected_var, variable_details, selecte
     Returns:
     - str: HTML representation of the Folium map.
     """
-    print(f'create_map: ', df)
     if not df.empty:
         df['latitude'] = df['latitude'].astype(float)
         df['longitude'] = df['longitude'].astype(float)
@@ -153,7 +154,8 @@ def create_map(df, color_dict, colormap, selected_var, variable_details, selecte
         map_html = m.get_root().render()
         return map_html
     else:
-        print("DataFrame is empty, cannot create the map.")
+        if debug:
+            print("DataFrame is empty, cannot create the map.")
         return None
 
 
@@ -322,7 +324,8 @@ def update_histogram(
         [fig_north_south, fig_north_south]
     ):
         selected_year_data = data_year.get_group(selected_year)
-        direction_var_season = selected_year_data[selected_year_data['season'] == selected_season][selected_var]
+        season_filtered_data = selected_year_data[selected_year_data['season'] == selected_season]
+        direction_var_season = season_filtered_data[selected_var]
 
         # Assign color based on direction
         color = 'blue' if direction == 'North' else 'orange'
@@ -337,17 +340,23 @@ def update_histogram(
                 name=direction,
                 marker_color=color,
                 opacity=0.4,
-                xbins=dict(start=min(direction_var_season), end=max(direction_var_season), size=bin_width)
+                xbins=dict(
+                    start=min(direction_var_season),
+                    end=max(direction_var_season),
+                    size=bin_width
+                )
             )
         )
 
     for direction, data_year, fig in zip(
-        ['East', 'West'], 
-        [east_data_year, west_data_year], 
+        ['East', 'West'],
+        [east_data_year, west_data_year],
         [fig_east_west, fig_east_west]
     ):
         selected_year_data = data_year.get_group(selected_year)
-        direction_var_season = selected_year_data[selected_year_data['season'] == selected_season][selected_var]
+        season_filtered_data = selected_year_data[selected_year_data['season'] == selected_season]
+        direction_var_season = season_filtered_data[selected_var]
+
         # Assign color based on direction
         color = 'green' if direction == 'East' else 'red'
 
@@ -363,9 +372,11 @@ def update_histogram(
                 marker_color = color,
                 opacity = 0.4,
                 xbins = (
-                    dict(start=min(direction_var_season), 
-                    end=max(direction_var_season), 
-                    size=bin_width)
+                    dict(
+                        start=min(direction_var_season),
+                        end=max(direction_var_season),
+                        size=bin_width
+                    )
                 )
             )
         )
@@ -402,12 +413,15 @@ def update_lineplot(selected_var, variable_details, df, df_soja):
     # Create a scatter plot with points colored by season and sized by normalized productivity
     scatter_fig = px.scatter(
         mean_var,
-        x='year',
-        y=selected_var,
-        color='season',
-        size='normalized_productivity',
-        title=f'Mean {selected_var}[{variable_details[selected_var][1]}] - {variable_details[selected_var][0]} by Season for Each Year',
-        labels={selected_var: selected_var}
+        x = 'year',
+        y = selected_var,
+        color = 'season',
+        size = 'normalized_productivity',
+        title = (
+            f'Mean {selected_var}[{variable_details[selected_var][1]}]'
+            f'- {variable_details[selected_var][0]} by Season for Each Year'
+        ),
+        labels = {selected_var: selected_var}
     )
 
     # Create a line plot to connect the points
@@ -432,14 +446,21 @@ def update_lineplot(selected_var, variable_details, df, df_soja):
                     {
                         'method': 'restyle',
                         'label': 'All Seasons',
-                        'args': [{'visible': [True] * len(mean_var['season'].unique())}]
+                        'args': [
+                            {'visible': [True] * len(mean_var['season'].unique())}
+                            ]
                     },
                     *[
                         {
                             'method': 'restyle',
                             'label': season,
                             'args': [
-                                {'visible': [True if s == season else False for s in mean_var['season']]}
+                                {
+                                    'visible': [
+                                        True if s == season else False
+                                        for s in mean_var['season']
+                                    ]
+                                }
                             ]
                         } for season in mean_var['season'].unique()
                     ]
@@ -496,7 +517,10 @@ def productivity_scatter_and_prediction(df, df_soja):
 
     # Filter data for training (years up to 2017) and prediction (years after 2017)
     max_prod_year = int(productivity_data['year'].max())
-    prediction_data = pd.DataFrame({'year': [max_prod_year + 1, max_prod_year + 2, max_prod_year + 3]})
+    prediction_data = pd.DataFrame({
+        'year': [max_prod_year + 1, max_prod_year + 2, max_prod_year + 3]
+        }
+    )
 
     # Ensure 'year' is treated as numeric
     productivity_data['year'] = pd.to_numeric(productivity_data['year'])
@@ -508,15 +532,29 @@ def productivity_scatter_and_prediction(df, df_soja):
     # Iterate over unique 'name_ibge' values
     for name_ibge, group_data in productivity_data.groupby('name_ibge'):
         # Fit a mixed-effects model for each group
-        md_north = smf.mixedlm("productivity ~ year", group_data, groups=group_data["name_ibge"], re_formula='~year')
+        md_north = smf.mixedlm(
+            "productivity ~ year",
+            group_data,
+            groups=group_data["name_ibge"],
+            re_formula='~year'
+        )
+
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", category=ConvergenceWarning)
-            mdf_north = md_north.fit(method=["powell"], maxiter=10000, start_params=[-231655.264, 100.0, 315929.301, 28.247, 282120.447])
+            mdf_north = md_north.fit(
+                method=["powell"],
+                maxiter=10000,
+                start_params=[-231655.264, 100.0, 315929.301, 28.247, 282120.447]
+            )
 
         # Make predictions for every year in prediction_data
         group_prediction = mdf_north.predict(exog=prediction_data)
         # Store predictions in the dictionary
-        predictions_dict[name_ibge] = pd.DataFrame({'year': prediction_data['year'], 'predictions': group_prediction})
+        predictions_dict[name_ibge] = pd.DataFrame({
+            'year': prediction_data['year'], 
+            'predictions': group_prediction
+            }
+        )
 
     # Convert the dictionary to a DataFrame
     predictions_df = pd.concat(predictions_dict, names=['name_ibge']).reset_index()
@@ -556,7 +594,6 @@ def create_dash(df, df_soja):
     all_columns = df.columns.tolist()
     # Columns to be removed
     columns_to_remove = ['codigo_ibge', 'latitude', 'longitude', 'year', 'month', 'day', 'season', 'name_ibge']
-    
     # Create a list of variables starting from the column of a DataFrame deleting some of them
     variables = [col for col in all_columns if col not in columns_to_remove]
     variable_details = {
@@ -570,7 +607,7 @@ def create_dash(df, df_soja):
         'WS2M': ['Wind Speed at 2 Meters', 'm/s'],
         'WS10M': ['Wind Speed at 10 Meters', 'm/s'],
     }
-    
+
     # Create colormap and split dataset
     colormap = generate_colormaps(df, variables)
     [north_data, south_data, east_data, west_data] = divide_dataset(df)
@@ -591,13 +628,16 @@ def create_dash(df, df_soja):
         'name_ibge': row['name_ibge'],
         'year': row['year'],
         'predictions': round(row['predictions'], 1)
-    } 
+    }
     for index, row in predictions_df.iterrows()
     ]
 
     # Define the layout of the dashboard
     app.layout = html.Div([
-        html.H1("Agroclimatology - Paranà (Brazil)", style={'text-align': 'center', 'color': 'green'}),  # Centered header
+        html.H1(
+            "Agroclimatology - Paranà (Brazil)",
+            style={'text-align': 'center', 'color': 'green'}
+        ),
 
         html.Div([
             # Dropdowns for Year, Month, and Day
@@ -637,8 +677,11 @@ def create_dash(df, df_soja):
             html.Label('Select Variable:', style={'padding': '10px 0'}),
             dcc.Dropdown(
                 id='var-dropdown',
-                options=[
-                    {'label': f'{var} - {variable_details[var][0]}', 'value': var, 'title': f'{var} - {variable_details[var][0]}'}
+                options=[{
+                    'label': f'{var} - {variable_details[var][0]}',
+                    'value': var,
+                    'title': f'{var} - {variable_details[var][0]}'
+                }
                     for var in variables
                 ],
                 value=variables[0],
@@ -684,9 +727,9 @@ def create_dash(df, df_soja):
             config={'displayModeBar': False}
         ),
         html.P(
-            "The evident dependence of productivity in each municipal on time can be used to predict, "
-            "using the Linear Mixed Models, the productivity for the next three years. "
-            "Those predictions are summarized in the table below.",
+            "The evident dependence of productivity in each municipal on time can be"
+            "used to predict, using the Linear Mixed Models, the productivity"
+            "for the next three years. Those predictions are summarized in the table below.",
             style={'text-align': 'center', 'margin-top': '10px'}
         ),
 
@@ -701,9 +744,7 @@ def create_dash(df, df_soja):
             ],
             style_table={'height': '300px', 'overflowY': 'auto', 'width': '60%', 'margin': 'auto'},
             data=data_table,
-        ),
-        
-
+        ),      
     ], style={'font-family': 'Arial, sans-serif', 'margin': '20px', 'background-color': 'white'})
 
     # Update callback
@@ -720,12 +761,23 @@ def create_dash(df, df_soja):
          Input('season-dropdown', 'value'),
          Input('var-dropdown', 'value')]
     )
-    def update_map_and_graph(selected_year, selected_month, selected_day, selected_season, selected_var):
+
+    def update_map_and_graph(
+        selected_year, selected_month, selected_day,
+        selected_season, selected_var
+    ):
         # Map:
-        map_html = update_map(df, df_soja, selected_year, selected_month, selected_day, selected_var, variable_details, colormap)
+        map_html = update_map(df, df_soja, selected_year,
+            selected_month, selected_day, selected_var,
+            variable_details, colormap
+        )
 
         # Histograms:
-        fig_lat, fig_long = update_histogram(selected_year, selected_season, selected_var, variable_details, north_data_year, south_data_year, east_data_year, west_data_year)
+        fig_lat, fig_long = update_histogram(
+            selected_year, selected_season, selected_var,
+            variable_details, north_data_year, south_data_year,
+            east_data_year, west_data_year
+        )
 
         # Lineplot
         lineplot_fig_years = update_lineplot(selected_var, variable_details, df, df_soja)

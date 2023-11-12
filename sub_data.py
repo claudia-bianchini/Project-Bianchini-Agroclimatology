@@ -25,6 +25,8 @@ import statsmodels.formula.api as smf
 from plotly.subplots import make_subplots
 
 
+debug = False
+
 def find_normalized_productivity(sub_data_unique_coord, df_soja, selected_year):
     """
     Find and normalize productivity values for a selected year.
@@ -49,7 +51,8 @@ def find_normalized_productivity(sub_data_unique_coord, df_soja, selected_year):
         return merged_df
     else:
         # If 'name_ibge' or 'name' columns don't exist in respective DataFrames
-        print("'name_ibge' column not found in sub_data_unique_coord or 'name' column not found in df_soja.")
+        if debug:
+            print("'name_ibge' column not found in sub_data_unique_coord or 'name' column not found in df_soja.")
         return sub_data_unique_coord  # Return the original DataFrame
 
 

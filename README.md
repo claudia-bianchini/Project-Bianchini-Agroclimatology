@@ -38,6 +38,14 @@ Before installing [Project Bianchini Agroclimatology], ensure that your system m
 - You must have a browser and its driver installed (preferably Google Chrome).
 - You must have a Kaggle account; otherwise, it will be required to create one.
 
+Dataset dimension: 
+- agroclimatology.csv: 488.625 KB
+- produtividade_soja.csv: 43 KB
+
+[Operating System]: Python is cross-platform and can run on Windows, macOS, and Linux.  
+[Processor]: Multi-core processor (e.g., dual-core) is recommended, but with this dataset dimension, also a single core will work.
+[RAM]: At least 4 GB of RAM is generally sufficient for basic Python scripts and small to medium-sized datasets.
+
 #### 2.2 Browser Driver Installation
 To automate the dataset download process, you need to have the appropriate browser driver installed. Follow the steps below based on your preferred browser:
 
@@ -63,8 +71,8 @@ Follow these steps to install [Project Bianchini Agroclimatology]:
     ```
     $ git clone address_of_your_project_repository
     ```
-
-4. Ensure all required dependencies are installed by running the following command:
+4. A Folder called [Project-Bianchini-Agroclimatology] will be downloaded in the selected directory. Enter in the folder.
+5. Ensure all required dependencies are installed by running the following command:
     ```
     $ pip install -r requirements.txt
     ```
@@ -75,16 +83,6 @@ Once installed, configure [Project Bianchini Agroclimatology]:
 1. Open the `config.txt` file in the downloaded folder.
 2. Delete the existing content.
 3. Provide the local paths for the browser driver and binary as described in Section 2.2.
-
-Example:
-
-Dataset dimension: 
-- agroclimatology.csv: 488.625 KB
-- produtividade_soja.csv: 43 KB
-
-[Operating System]: Python is cross-platform and can run on Windows, macOS, and Linux.  
-[Processor]: Multi-core processor (e.g., dual-core) is recommended, but with this dataset dimension, also a single core will work.
-[RAM]: At least 4 GB of RAM is generally sufficient for basic Python scripts and small to medium-sized datasets.
 
 #### 2.5 Usage
 Follow these steps to use [Project Bianchini Agroclimatology]:
@@ -106,7 +104,7 @@ Follow these steps to use [Project Bianchini Agroclimatology]:
 ##### Step 3: Kaggle log-in
 - It may be required to log in to your Kaggle Account to allow the download of the dataset.
 - The download process may take some minutes.
-- The files will be downloaded in a folder on the Desktop called 'Project Bianchini Agroclimatology' to avoid issues during the download.
+- The files will be downloaded in a folder on the Desktop called 'Project-Bianchini-Agroclimatology' to avoid issues during the download.
 
 ##### Step 4: Open the Dashboard
 - The dashboard can be visualized using a local link. The default one is:
@@ -314,18 +312,22 @@ The strongest wind is also in this case in Spring and Winter, but ranges are not
 #### Soja Productivity:
 Scatterplot highlights a general growing trend for the productivity of soja over the years.
 
-### 5. Interesting Trends
-
 ### 6. Conclusion
 
 #### 1. Summarize Key Findings:
 
-After a comprehensive exploration of the agroclimatology dataset for Paraná, Brazil, the dashboard has provided valuable insights into the spatial and temporal dynamics of key variables. The analysis revealed notable trends in temperature and precipitation, with distinct seasonal patterns observed over the years. Geospatial visualizations highlighted clusters of high and low productivity regions, suggesting potential correlations with specific climatic conditions. While these findings contribute to our understanding of the agroclimatic factors influencing soja production, it's essential to acknowledge the limitations in data granularity and potential biases. Moving forward, further investigations into specific climatic events and their impact on productivity could enhance our predictive capabilities. The insights derived from this dashboard have significant implications for agricultural decision-making, providing a foundation for informed strategies in soja production in the region.
+After a comprehensive exploration of the agroclimatology dataset for Paraná, Brazil, the dashboard has provided valuable insights into the spatial and temporal dynamics of key variables. The stronger finded dependece for soja production is time. It's evidet from scatterplot a linear dependance between these two variables and the fact that for the majority of the municipals there is a growing trend. This is the unique strong relation highlighted by data, and it's the only one that we can use to estimate the produtivity for next years. 
+Finding relation with the other variables it's harder. Lineplot give information about the effective presence of the season, which wasn't obvious at that latitude. It also highlight the independence between the local productivity and the mean value of parameter in the region, even if the region is not that big. Also the presence of the sea in the east is significant only for some variables (Wetness of Soil at soja plants' and Surface Preassure). 
+From this conclusion it's possible to assume that there are other factors that are not in the dataset (like the increasing of coltivated field area or introduction of new agricultural techniques) that are responsable for the increasing of the productivity over years.
+
 
 #### 2. Future Directions:
 
-Further analysis on this dataset can be computed to find a stronger relation between the variables and the soja_production. It could take more results using a multivariable 
-approach to the problem. Investigating considering more than one measured variable can lead to more interesting results.
+Further analysis on this dataset can be computed to find a stronger relation between the variables and the soja_production.
+It can be good implementing plots that shows dependance between the measured variables.
+More detailed studies for singolar municipal can lead to better estimation to relation between parameter.
+Another interesting step can be dynamically observing, with an automatic sweep along days, the Map.
+Looking for additional data of different types can give better results.
 
 
 ***********************************************************************************************************************
